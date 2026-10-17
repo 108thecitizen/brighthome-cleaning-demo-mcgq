@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BrightHome Cleaning – Teaching Demo (DRAFT FOR OWNER REVIEW)</title>
+<style>
+  :root{--ink:#16202a;--muted:#43505c;--bg:#f4f8f9;--card:#ffffff;--accent:#0b5c6b;--accent-ink:#ffffff;--line:#b9c7cf;--warn-bg:#fff3cd;--warn-ink:#3f2a00;--ok-bg:#e3f4ea;--ok-ink:#0d3b22;--end-bg:#fde8e8;--end-ink:#5a1010;--focus:#0033cc;color-scheme:light}
+  *{box-sizing:border-box}
+  html{font-size:100%}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;color:var(--ink);background:var(--bg)}
+  [hidden]{display:none!important}
+  a,button,input,summary,pre{font:inherit}
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+  .wrap{max-width:60rem;margin:0 auto;padding:1rem}
+  .banner{background:#16202a;color:#fff;padding:.75rem 1rem;text-align:center;font-weight:600}
+  .banner small{display:block;font-weight:400}
+  .skip{position:absolute;left:-999px}
+  .skip:focus{left:1rem;top:1rem;background:#fff;color:#000;padding:.5rem;z-index:10}
+  section,.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1.25rem;margin:1rem 0}
+  h1{font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.2;margin:.5rem 0}
+  h2{font-size:1.4rem;margin:0 0 .5rem}
+  h3{font-size:1.1rem;margin:.75rem 0 .25rem}
+  .flag{background:var(--warn-bg);color:var(--warn-ink);border:2px solid #b78103;border-radius:10px;padding:1rem}
+  .flag ul{margin:.5rem 0 0 1.2rem;padding:0}
+  .status{border-radius:10px;padding:.75rem 1rem;font-weight:600}
+  .status.active{background:var(--ok-bg);color:var(--ok-ink)}
+  .status.ended{background:var(--end-bg);color:var(--end-ink)}
+  .sim{background:#16202a;color:#fff;border-radius:10px;padding:.6rem 1rem;margin-top:.5rem;font-weight:600}
+  .offer{font-size:1.15rem}
+  button{cursor:pointer;min-height:44px;padding:.55rem 1rem;border-radius:8px;border:2px solid var(--accent);background:#fff;color:var(--accent);font-weight:600}
+  button.primary{background:var(--accent);color:var(--accent-ink);font-size:1.1rem;padding:.7rem 1.4rem}
+  button:hover{filter:brightness(.95)}
+  dl{margin:0}
+  dt{font-weight:700;margin-top:.6rem}
+  dd{margin:0}
+  details{border-top:1px solid var(--line);padding:.5rem 0}
+  details:first-of-type{border-top:0}
+  summary{cursor:pointer;font-weight:600;padding:.35rem 0}
+  .cols{display:grid;gap:1rem;grid-template-columns:1fr}
+  @media(min-width:48rem){.cols{grid-template-columns:1fr 1fr}}
+  .notice{background:#eef3f6;border-left:5px solid var(--accent);padding:.75rem 1rem;border-radius:6px;font-size:.95rem}
+  .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0}
+  .chips button{font-weight:500}
+  #chat-log{height:20rem;overflow-y:auto;border:1px solid var(--line);border-radius:10px;padding:.75rem;background:#fbfdfd}
+  .msg{margin:0 0 .75rem;padding:.5rem .75rem;border-radius:10px;max-width:92%}
+  .msg p{margin:.15rem 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+  .msg .who{font-size:.8rem;font-weight:700;color:var(--muted)}
+  .msg.user{background:#dcecf1;margin-left:auto}
+  .msg.bot{background:#fff;border:1px solid var(--line)}
+  .msg button{margin-top:.5rem;font-size:.95rem}
+  form.chat{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem;align-items:flex-end}
+  form.chat .field{flex:1 1 14rem}
+  label{display:block;font-weight:600;margin-bottom:.25rem}
+  input[type=text],input[type=date]{width:100%;min-height:44px;padding:.5rem;border:2px solid #5d6d78;border-radius:8px;background:#fff;color:var(--ink)}
+  pre.draft{white-space:pre-wrap;overflow-wrap:anywhere;background:#fbfdfd;border:1px solid var(--line);border-radius:8px;padding:1rem;font-family:ui-monospace,Consolas,monospace;font-size:.92rem}
+  .notsent{display:inline-block;background:var(--end-bg);color:var(--end-ink);font-weight:800;padding:.2rem .6rem;border-radius:6px;border:2px solid #a12626}
+  footer{font-size:.9rem;color:var(--muted);padding:1rem 0 2rem}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="banner">DRAFT FOR OWNER REVIEW
+  <small>Fictional teaching scenario. BrightHome is not a real client. Extra policies are sample assumptions.</small>
+</div>
+
+<main id="main" class="wrap">
+
+  <div class="flag" role="note" aria-labelledby="flag-h">
+    <strong id="flag-h">Owner review needed before any real customer use</strong>
+    <ul>
+      <li><strong>Threshold conflict:</strong> the offer line says $100 or more, but the terms and reviewed FAQ say $150 before discount. This page uses $150 (the reviewed FAQ wording). It is unconfirmed.</li>
+      <li>The completion-by-deadline rule and the standard cleaning scope are sample policies and are unverified.</li>
+      <li>No approved contact channel was provided (see “Human review” below).</li>
+      <li>Open owner questions: definition of “new customer,” whether the threshold includes tax or fees, limits per household, stacking with other offers, exact service area, and response timing.</li>
+    </ul>
+  </div>
+
+  <section aria-labelledby="top-h">
+    <h1 id="top-h">BrightHome Cleaning: a welcome offer for new Plano customers</h1>
+    <div id="status" class="status active" role="status"></div>
+    <div id="sim-badge" class="sim" role="status" hidden></div>
+    <p id="offer-line" class="offer"></p>
+    <p><button type="button" class="primary" id="cta-main">Request a cleaning quote</button></p>
+    <p class="notice">This demo page does not send anything and does not book anything. The button above only opens a local draft on this page for owner review.</p>
+  </section>
+
+  <div class="cols">
+    <section aria-labelledby="terms-h">
+      <h2 id="terms-h">Offer terms</h2>
+      <dl>
+        <dt>Who it’s for</dt><dd>New BrightHome customers in Plano.</dd>
+        <dt>The offer</dt><dd>$25 off the first standard cleaning priced at $150 or more, before discount. <em>(Owner to confirm $100 vs. $150.)</em></dd>
+        <dt>Deadline</dt><dd>The offer ends November 30, 2026. Sample policy: the cleaning must be completed by that date.</dd>
+        <dt>Scope</dt><dd>Standard cleaning only. Deep cleaning and add-ons are excluded.</dd>
+        <dt>Quotes and availability</dt><dd>A person reviews every quote. A quote request is not a booking, and availability is not guaranteed.</dd>
+        <dt>Exceptions</dt><dd>There are no automatic discount exceptions.</dd>
+      </dl>
+    </section>
+
+    <section aria-labelledby="scope-h">
+      <h2 id="scope-h">What standard cleaning covers</h2>
+      <h3>Included (sample scope)</h3>
+      <ul>
+        <li>Routine kitchen surfaces</li>
+        <li>Routine bathroom surfaces</li>
+        <li>Dusting</li>
+        <li>Floors</li>
+      </ul>
+      <h3>Not included</h3>
+      <ul>
+        <li>Deep cleaning</li>
+        <li>Add-ons</li>
+      </ul>
+    </section>
+  </div>
+
+  <section aria-labelledby="faq-h">
+    <h2 id="faq-h">Frequently asked questions</h2>
+    <details><summary>Who qualifies for the offer?</summary><p>New BrightHome customers in Plano.</p></details>
+    <details><summary>What is the discount?</summary><p>$25 off the first standard cleaning priced at $150 or more, before discount.</p></details>
+    <details><summary>When does the offer end?</summary><p>November 30, 2026. Sample policy: the cleaning must be completed by that date.</p></details>
+    <details><summary>What does standard cleaning include?</summary><p>Sample scope: routine kitchen and bathroom surfaces, dusting and floors. Deep cleaning and add-ons are excluded.</p></details>
+    <details><summary>How do I get started?</summary><p>Request a cleaning quote. A person confirms scope, eligibility and availability. A quote request is not a booking.</p></details>
+  </section>
+
+  <section aria-labelledby="chat-h">
+    <h2 id="chat-h">Ask a question <span style="font-size:1rem">(Scripted demonstration, not live AI)</span></h2>
+    <div class="notice" role="note">
+      <strong>Scripted demonstration, not live AI.</strong> Answers come from five prepared, owner-reviewed facts using simple keyword matching. It can misunderstand you, it does not remember earlier messages, and it cannot check availability, approve exceptions, book anything or send anything. Nothing you type leaves this page or is stored. Please don’t type personal details.
+    </div>
+    <p id="chips-label" style="margin:.75rem 0 0;font-weight:600">Try an example question:</p>
+    <div class="chips" role="group" aria-labelledby="chips-label" id="chips"></div>
+    <div id="chat-log" role="log" aria-live="polite" aria-label="Conversation log" tabindex="0"></div>
+    <form class="chat" id="chat-form" autocomplete="off">
+      <div class="field">
+        <label for="chat-input">Your question</label>
+        <input type="text" id="chat-input" maxlength="300">
+      </div>
+      <button type="submit">Ask the demo</button>
+      <button type="button" id="chat-clear">Clear conversation</button>
+    </form>
+  </section>
+
+  <section id="handoff" aria-labelledby="handoff-h" tabindex="-1" hidden>
+    <h2 id="handoff-h">Human review: owner-review request (local draft)</h2>
+    <p><span class="notsent">Not sent</span> This draft exists only on this page. No message, booking, quote or notification has been made.</p>
+    <pre class="draft" id="draft" tabindex="0"></pre>
+    <h3>Contact option</h3>
+    <p>No approved contact channel was provided in the facts for this exercise. The owner must provide one before public customer use. This page has no working contact form, backend or email connection.</p>
+    <p>
+      <button type="button" id="copy-draft">Copy draft text</button>
+      <button type="button" id="close-handoff">Close draft</button>
+    </p>
+    <p id="copy-msg" role="status"></p>
+  </section>
+
+  <section aria-labelledby="presenter-h">
+    <h2 id="presenter-h">Presenter tools</h2>
+    <details>
+      <summary>Presenter-only: fictional date simulation</summary>
+      <p>By default the page checks your device’s real date against the offer end date (2026-11-30). To demonstrate an expired offer, you can set a fictional date here. While it is set, a visible badge appears at the top of the page.</p>
+      <label for="sim-date">Fictional simulation date</label>
+      <input type="date" id="sim-date">
+      <p>
+        <button type="button" id="sim-apply">Apply simulated date</button>
+        <button type="button" id="sim-after">Simulate December 1, 2026</button>
+        <button type="button" id="sim-reset">Use real device date</button>
+      </p>
+    </details>
+  </section>
+
+  <footer>
+    <p>DRAFT FOR OWNER REVIEW. Fictional teaching scenario with sample policies. Not a real business offer. The owner must review every business claim and complete a contact method before any real customer use.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var OFFER_END = '2026-11-30';
+  var OFFER_END_LABEL = 'November 30, 2026';
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var simDate = null;
+
+  var FACT_LINES = [
+    'Audience: New BrightHome customers in Plano.',
+    'Offer: $25 off the first standard cleaning priced at $150 or more, before discount. [Owner to confirm $100 vs. $150.]',
+    'Offer ends 2026-11-30. Sample policy: the cleaning must be completed by that date.',
+    'Scope (sample): routine kitchen and bathroom surfaces, dusting and floors. Deep cleaning and add-ons are excluded.',
+    'Quotes require human review. No booking or availability is guaranteed.',
+    'No automatic discount exceptions.'
+  ];
+
+  var EXAMPLES = [
+    'Who qualifies for the offer?',
+    'What is the discount?',
+    'When does the offer end?',
+    'What does standard cleaning include?',
+    'How do I get started?'
+  ];
+
+  function $(id) { return document.getElementById(id); }
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function realToday() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function today() { return simDate || realToday(); }
+  function isExpired() { return today() > OFFER_END; }
+  function nice(iso) {
+    var p = iso.split('-');
+    return MONTHS[parseInt(p[1], 10) - 1] + ' ' + parseInt(p[2], 10) + ', ' + p[0];
+  }
+  function dateSource() { return simDate ? 'a fictional simulation date' : 'this device’s date'; }
+
+  /* ---------- status display ---------- */
+  function updateStatus() {
+    var ex = isExpired();
+    var st = $('status');
+    st.className = 'status ' + (ex ? 'ended' : 'active');
+    st.textContent = ex
+      ? 'This promotion has ended. As of ' + nice(today()) + ' (' + dateSource() + '), it is no longer active. The terms on this page are shown for reference only.'
+      : 'This promotion is listed as active through ' + OFFER_END_LABEL + ' (checked against ' + dateSource() + '). Availability is not guaranteed.';
+    $('offer-line').textContent = ex
+      ? 'This offer ended on ' + OFFER_END_LABEL + ' and is not currently available.'
+      : 'New BrightHome Cleaning customers in Plano can get $25 off their first standard cleaning priced at $150 or more, before discount, for cleanings completed by ' + OFFER_END_LABEL + '.';
+    $('terms-h').textContent = ex ? 'Offer terms (ended, reference only)' : 'Offer terms';
+    var b = $('sim-badge');
+    if (simDate) {
+      b.hidden = false;
+      b.textContent = 'FICTIONAL SIMULATION: this page is acting as if today were ' + nice(simDate) + '. This is not the real date.';
+    } else {
+      b.hidden = true;
+      b.textContent = '';
+    }
+  }
+
+  function expiredNote() {
+    return 'As of ' + nice(today()) + ' (' + dateSource() + '), the promotion that ended on ' + OFFER_END_LABEL + ' is no longer active, so I can’t present it as available. I don’t have information about any other offer. A person would need to answer that.';
+  }
+
+  /* ---------- scripted responder ---------- */
+  var SENSITIVE = /(\b\d{3}[-.\s)]*\d{3}[-.\s]?\d{4}\b|@|\b\d{13,19}\b|ssn|social security|password|passcode|credit card|card number|door code|gate code|alarm code|\bmy address\b|\b\d{1,5}\s+\w+\s+(st|street|ave|avenue|rd|road|dr|drive|ln|lane|blvd)\b)/;
+
+  function respond(raw) {
+    var q = raw.toLowerCase();
+    var ex = isExpired();
+    var m;
+
+    // 1. Attempts to change the rules
+    if (/(ignore|disregard|override|forget)\b.*\b(rule|instruction|polic|term|previous|above|prompt)|system prompt|developer mode|jailbreak|pretend (you|to)|you are now|act as (the )?(owner|manager|admin)|new rules|(i am|i’m|i'm) the owner|admin (mode|access)|reveal (your )?(prompt|instructions)/.test(q)) {
+      return {
+        text: 'I can only follow the rules built into this scripted demo, and messages typed in the chat can’t change them or give anyone special authority. I can answer questions about the reviewed offer, or I can help you prepare a request for a person to review.',
+        escalate: true,
+        reason: 'Customer text tried to change the assistant’s rules or claimed special authority. No rules were changed.',
+        decision: 'Owner to decide whether any follow-up is needed. The assistant made no changes and approved nothing.'
+      };
+    }
+
+    // 2. Sensitive personal data
+    if (SENSITIVE.test(raw.toLowerCase())) {
+      return {
+        text: 'Please don’t share personal details such as phone numbers, email addresses, home addresses, payment details or access codes here. This demo doesn’t need them, doesn’t store them and can’t contact anyone. If you have a question I can’t answer, I can help you prepare a draft for owner review.',
+        escalate: false,
+        sensitive: true
+      };
+    }
+
+    // 3. Greetings
+    if (/^\s*(hi|hello|hey|good (morning|afternoon|evening))\b/.test(q) && q.length < 30) {
+      return { text: 'Hello! I can explain who the offer is for, the discount, the deadline, what standard cleaning covers, and the next step. Try one of the example questions above.', escalate: false };
+    }
+
+    // 4. Larger discount, exceptions, price matching, deadline changes
+    m = q.match(/\$\s?(\d+)\s*(dollars )?off/);
+    var otherAmount = m && m[1] !== '25';
+    var wantsChange = /(extra|bigger|larger|higher|additional|another discount|double|half off|half price|\d+\s?%|percent|free clean|for free|waive|waiver|price match|match (a |the |their |another )?(price|competitor|quote)|beat (a |the |their )?(price|quote)|competitor|stack|combine|exception|negotiat|haggle|special (deal|price|rate)|lower the (threshold|minimum)|below (the )?(minimum|threshold)|under \$?150|less than \$?150|extend|extension|after (the )?(deadline|november))/.test(q);
+    var aboutMoney = /(discount|off|deal|price|offer|coupon|threshold|minimum|promo|deadline|term)/.test(q);
+    if (otherAmount || (wantsChange && aboutMoney)) {
+      return {
+        text: (ex ? expiredNote() + '\n\n' : '') +
+          'Thanks for asking! The reviewed offer is $25 off the first standard cleaning priced at $150 or more, before discount, for new Plano customers, with the cleaning completed by ' + OFFER_END_LABEL + '. I can’t change the discount, waive the minimum, extend the deadline, match prices or approve exceptions, and I can’t promise any outcome. A person would need to review a request like that.',
+        escalate: true,
+        reason: 'Customer asked for something beyond the approved offer (larger discount, exception, price match, stacking, threshold or deadline change).',
+        decision: 'Owner to decide whether to decline the request, point the customer to the standard offer, or make a one-off exception. The assistant has no authority to decide this.'
+      };
+    }
+
+    // 5. A different threshold figure than the reviewed facts
+    if (/\b100\b/.test(q) && /(minimum|threshold|priced|or more|offer|cleaning)/.test(q) && !/\boff\b/.test(q)) {
+      return {
+        text: 'The reviewed terms I’ve been given list a $150 minimum, before discount. If you saw a different figure somewhere, I can’t settle that myself, and I don’t want to guess. I’m flagging it so a person can confirm the correct terms.',
+        escalate: true,
+        reason: 'Customer mentioned a $100 threshold. The reviewed FAQ says $150. The source facts conflict.',
+        decision: 'Owner to confirm whether the threshold is $100 or $150 and correct any published material.'
+      };
+    }
+
+    // 6. Deadline / validity
+    if (/(\bends?\b|expire|deadline|until|last day|valid|still (on|valid|available|active|running)|november 30|nov 30|11\/30|when does|cutoff|cut-off)/.test(q)) {
+      if (ex) {
+        return { text: expiredNote(), escalate: true, reason: 'Customer asked about the offer deadline after the offer end date (' + nice(today()) + ').', decision: 'Owner to decide how to respond to customers asking about an ended promotion.' };
+      }
+      return {
+        text: 'The offer ends ' + OFFER_END_LABEL + '. Sample policy: the cleaning must be completed by that date, so requesting a quote by then isn’t enough on its own. Availability isn’t guaranteed, and a person confirms whether timing can work.\n\nDate used for this check: ' + nice(today()) + ' (' + dateSource() + ').',
+        escalate: false
+      };
+    }
+
+    // 7. Availability / booking / timing
+    if (/(availab|book|schedul|appointment|reserve|slot|how soon|earliest|tomorrow|weekend|next week|this week|come out|turnaround|response time|how long)/.test(q)) {
+      return {
+        text: 'I can’t confirm availability, schedule a cleaning or book anything. A quote request is not a booking. A person confirms scope, eligibility and availability. I also don’t have a response time to share.',
+        escalate: true,
+        reason: 'Customer asked about availability, scheduling or timing. The assistant cannot confirm any of these.',
+        decision: 'Owner to decide how availability and timing questions are answered and who responds.'
+      };
+    }
+
+    // 8. Eligibility
+    if (/(who (qualif|can|is eligible|gets)|eligib|qualif|new customer|existing|current customer|returning|past customer|used you before|household|neighbo|friend|referral)/.test(q)) {
+      var edge = /(existing|current customer|returning|past customer|used you before|household|neighbo|friend|referral)/.test(q);
+      return {
+        text: (ex ? expiredNote() + '\n\n' : '') +
+          'The offer is for new BrightHome customers in Plano. I can’t tell whether you personally qualify. A person confirms eligibility when a quote is reviewed.' +
+          (edge ? ' The reviewed facts don’t spell out edge cases, such as past customers or other household members, so a person would need to decide that.' : ''),
+        escalate: edge,
+        reason: 'Customer asked an eligibility edge case. “New customer” is not defined in the reviewed facts.',
+        decision: 'Owner to define “new customer” and say how this case should be handled.'
+      };
+    }
+
+    // 9. Contact details
+    if (/(phone|e-mail|email|call you|call us|contact|reach you|text you)/.test(q)) {
+      return {
+        text: 'No approved contact channel has been provided for this exercise, so I can’t share a phone number or email. The owner must provide one before public customer use. I can help you prepare a local draft for owner review, but it won’t be sent.',
+        escalate: true,
+        reason: 'Customer asked for contact details. None were provided in the facts.',
+        decision: 'Owner to provide an approved contact channel before public use.'
+      };
+    }
+
+    // 10. Prices and rates (not in reviewed facts)
+    if (/(cost|how much|rates?\b|pricing|estimate|price)/.test(q) && !/(discount|\$\s?25|threshold|minimum|saving)/.test(q)) {
+      return {
+        text: 'I don’t have prices or rates in the reviewed facts, so I can’t estimate what your cleaning would cost. A person reviews the details and provides a quote.',
+        escalate: true,
+        reason: 'Customer asked for pricing. No prices were supplied in the facts.',
+        decision: 'Owner to decide how pricing questions are handled and what can be published.'
+      };
+    }
+
+    // 11. Discount details
+    if (/(discount|\$\s?25|25 dollars|saving|threshold|minimum|priced|\bdeal\b|\boffer\b|promo|coupon)/.test(q)) {
+      if (ex) {
+        return { text: expiredNote(), escalate: true, reason: 'Customer asked about the discount after the offer end date (' + nice(today()) + ').', decision: 'Owner to decide how to respond to customers asking about an ended promotion.' };
+      }
+      return {
+        text: 'The offer is $25 off the first standard cleaning priced at $150 or more, before discount. It is for new BrightHome customers in Plano, and the cleaning must be completed by ' + OFFER_END_LABEL + '. A person confirms scope, eligibility and availability.',
+        escalate: false
+      };
+    }
+
+    // 12. Scope
+    if (/(include|scope|standard|deep|add-?on|extra service|oven|fridge|refrigerator|window|laundry|carpet|garage|bedroom|living room|basement|patio|move[- ]?(in|out)|what do you clean|covered|kitchen|bathroom|dust|floor)/.test(q)) {
+      var unlisted = /(oven|fridge|refrigerator|window|laundry|carpet|garage|bedroom|living room|basement|patio|move[- ]?(in|out))/.test(q);
+      return {
+        text: 'In the reviewed facts, standard cleaning covers routine kitchen and bathroom surfaces, dusting and floors. Deep cleaning and add-ons are excluded.' +
+          (unlisted ? ' I don’t have information on whether the specific task you mentioned counts, so a person would need to confirm that.' : ''),
+        escalate: unlisted,
+        reason: 'Customer asked about a specific task that is not listed in the reviewed scope.',
+        decision: 'Owner to say whether the task is part of standard cleaning, an add-on or excluded.'
+      };
+    }
+
+    // 13. Next step
+    if (/(get started|\bstart\b|next step|how do i|how to|quote|sign up|apply|claim|redeem|request)/.test(q)) {
+      return {
+        text: (ex ? expiredNote() + '\n\n' : '') +
+          'To get started, request a cleaning quote. A person confirms scope, eligibility and availability. A quote request is not a booking. On this demo page, the main button only opens a local draft for owner review, and nothing is sent.',
+        escalate: false
+      };
+    }
+
+    // 14. Unknown
+    return {
+      text: 'I’m not sure about that one, and I don’t want to guess. I can answer questions about eligibility, the discount, the deadline, what standard cleaning covers and the next step. For anything else, a person would need to help.',
+      escalate: true,
+      reason: 'Customer asked a question the scripted demo could not match to a reviewed fact.',
+      decision: 'Owner to decide whether this question needs a reviewed FAQ answer.'
+    };
+  }
+
+  /* ---------- chat UI ---------- */
+  var log = $('chat-log');
+
+  function addMsg(who, text) {
+    var d = document.createElement('div');
+    d.className = 'msg ' + who;
+    var l = document.createElement('span');
+    l.className = 'who';
+    l.textContent = who === 'user' ? 'You' : 'Demo assistant (scripted)';
+    var p = document.createElement('p');
+    p.textContent = text;
+    d.appendChild(l);
+    d.appendChild(p);
+    log.appendChild(d);
+    log.scrollTop = log.scrollHeight;
+    return d;
+  }
+
+  function ask(text) {
+    var clean = String(text || '').replace(/\s+/g, ' ').trim().slice(0, 300);
+    if (!clean) { return; }
+    addMsg('user', clean);
+    var r = respond(clean);
+    var node = addMsg('bot', r.text);
+    if (r.escalate) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = 'Prepare owner-review request';
+      b.addEventListener('click', function () {
+        openHandoff(r.sensitive ? null : clean, r.reason, r.decision);
+      });
+      node.appendChild(b);
+    }
+  }
+
+  function resetLog() {
+    log.textContent = '';
+    addMsg('bot', 'Hi! I’m a scripted demo, not live AI. I can explain the offer’s eligibility, discount, deadline, scope and next step using owner-reviewed facts. I can’t check availability, approve exceptions, book anything or send anything. Please don’t share personal details.');
+  }
+
+  /* ---------- handoff draft ---------- */
+  function openHandoff(question, reason, decision) {
+    var ex = isExpired();
+    var q = question
+      ? '“' + question + '”'
+      : '[Not included, because the message may contain personal details.]';
+    var lines = [];
+    lines.push('DRAFT FOR OWNER REVIEW. NOT SENT.');
+    lines.push('(Local draft on this page only. No message, booking, quote or notification has been made.)');
+    lines.push('');
+    lines.push('CUSTOMER QUESTION (plain text, as typed):');
+    lines.push(q);
+    lines.push('');
+    lines.push('WHY THIS WAS FLAGGED:');
+    lines.push(reason || 'Customer wants to request a cleaning quote.');
+    lines.push('');
+    lines.push('KNOWN FACTS (reviewed; sample policies for a fictional exercise):');
+    FACT_LINES.forEach(function (f) { lines.push('- ' + f); });
+    lines.push('- Offer status on ' + nice(today()) + ' (' + dateSource() + '): ' + (ex ? 'ENDED' : 'active, not confirmed for this customer') + '.');
+    lines.push('- Eligibility, scope and availability for this customer are unverified. No quote has been given.');
+    lines.push('');
+    lines.push('DECISION NEEDED:');
+    lines.push(decision || 'Owner to decide how quote requests are received and answered. No contact channel has been provided.');
+    lines.push('');
+    lines.push('SUGGESTED REPLY (for the owner to edit):');
+    lines.push('“Thanks for your interest in BrightHome Cleaning. [Owner: add your decision here.] The reviewed offer was $25 off the first standard cleaning priced at $150 or more, before discount, for new Plano customers, with the cleaning completed by ' + OFFER_END_LABEL + '. A person will confirm scope, eligibility and availability.”');
+    lines.push('');
+    lines.push('PERSONAL DATA: none collected.');
+    $('draft').textContent = lines.join('\n');
+    $('copy-msg').textContent = '';
+    var h = $('handoff');
+    h.hidden = false;
+    h.focus();
+    h.scrollIntoView({ block: 'start' });
+  }
+
+  /* ---------- wiring ---------- */
+  var chips = $('chips');
+  EXAMPLES.forEach(function (t) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = t;
+    b.addEventListener('click', function () { ask(t); });
+    chips.appendChild(b);
+  });
+
+  $('chat-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var inp = $('chat-input');
+    ask(inp.value);
+    inp.value = '';
+    inp.focus();
+  });
+  $('chat-clear').addEventListener('click', function () { resetLog(); $('chat-input').focus(); });
+
+  $('cta-main').addEventListener('click', function () {
+    openHandoff('Customer wants to request a cleaning quote.', 'Customer used the “Request a cleaning quote” button on the demo page.', null);
+  });
+
+  $('close-handoff').addEventListener('click', function () { $('handoff').hidden = true; $('cta-main').focus(); });
+
+  $('copy-draft').addEventListener('click', function () {
+    var msg = $('copy-msg');
+    try {
+      navigator.clipboard.writeText($('draft').textContent).then(
+        function () { msg.textContent = 'Copied to your clipboard. Nothing was sent.'; },
+        function () { msg.textContent = 'The browser blocked copying. Select the draft text and copy it manually.'; }
+      );
+    } catch (err) {
+      msg.textContent = 'Copying isn’t available here. Select the draft text and copy it manually.';
+    }
+  });
+
+  function setSim(iso) {
+    simDate = iso || null;
+    updateStatus();
+    addMsg('bot', simDate
+      ? 'Presenter note: this demo is now using the FICTIONAL date ' + nice(simDate) + '. That is not the real date.'
+      : 'Presenter note: the demo is back to using your device’s real date (' + nice(realToday()) + ').');
+  }
+  $('sim-apply').addEventListener('click', function () {
+    var v = $('sim-date').value;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(v)) { setSim(v); }
+  });
+  $('sim-after').addEventListener('click', function () { $('sim-date').value = '2026-12-01'; setSim('2026-12-01'); });
+  $('sim-reset').addEventListener('click', function () { $('sim-date').value = ''; setSim(null); });
+
+  updateStatus();
+  resetLog();
+})();
+</script>
+</body>
+</html>
